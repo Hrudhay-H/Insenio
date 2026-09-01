@@ -1,4 +1,4 @@
-import { apiRequest } from './api';
+import { apiRequest, apiUpload } from './api';
 
 export function createEmptyProfile() {
   return {
@@ -18,4 +18,10 @@ export async function sendMessage(messages) {
     method: 'POST',
     body: JSON.stringify({ messages })
   });
+}
+
+export async function uploadResume(file) {
+  const formData = new FormData();
+  formData.append('file', file);
+  return apiUpload('/genie/intake/resume', formData);
 }

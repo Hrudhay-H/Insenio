@@ -1068,3 +1068,8 @@ button:focus-visible { outline: 2px solid #5485ED; outline-offset: 2px; }
   .field-row { grid-template-columns: 1fr; }
   .repeatable-row, .repeatable-row.single { grid-template-columns: 1fr; }
 }
+
+.resume-upload-row { display: flex; justify-content: center; margin-top: 6px; }
+.resume-upload-btn { border: 0; background: transparent; color: rgba(17, 17, 17, 0.55); cursor: pointer; font-size: 0.76rem; text-decoration: underline; text-underline-offset: 3px; }
+.resume-upload-btn:hover, .resume-upload-btn:focus-visible { color: var(--ink); }
+.resume-upload-btn:disabled { opacity: 0.5; cursor: not-allowed; text-decoration: none; }

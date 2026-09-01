@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { sendMessage as sendGenieMessage } from './services/genieService'
+import { sendMessage as sendGenieMessage, uploadResume } from './services/genieService'
 import { labService } from './services/labService'
 import { savedLabService } from './services/savedLabService'
 import { profileService } from './services/profileService'
@@ -494,8 +494,10 @@ function App() {
   const [activeId, setActiveId] = useState('current')
   const [draft, setDraft] = useState('')
   const [isThinking, setIsThinking] = useState(false)
+  const [uploadingResume, setUploadingResume] = useState(false)
   const messageAreaRef = useRef(null)
   const textareaRef = useRef(null)
+  const resumeInputRef = useRef(null)
   const activeConversation = conversations.find((conversation) => conversation.id === activeId) || conversations[0]
   const hasMessages = activeConversation.messages.length > 0
 
@@ -587,6 +589,28 @@ function App() {
       updateConversation(activeId, { messages: [...conversation.messages, userMessage, genieMessage] })
     } finally {
       setIsThinking(false)
+    }
+  }
+
+  const handleResumeUpload = async (file) => {
+    if (!file || uploadingResume) return
+    setUploadingResume(true)
+    const conversation = activeConversation
+    const userMessage = { id: `${Date.now()}-user`, role: 'student', text: `Uploaded resume: ${file.name}` }
+    updateConversation(activeId, { messages: [...conversation.messages, userMessage], changes: [] })
+
+    try {
+      const result = await uploadResume(file)
+      const nextProfile = mapProfile(result.profile)
+      const changes = diffProfiles(conversation.profile, nextProfile)
+      const genieMessage = { id: `${Date.now()}-genie`, role: 'genie', text: result.reply }
+      updateConversation(activeId, { messages: [...conversation.messages, userMessage, genieMessage], profile: nextProfile, changes })
+      setProfile(nextProfile)
+    } catch (err) {
+      const genieMessage = { id: `${Date.now()}-genie`, role: 'genie', text: err.message || "Sorry, I couldn't read that file. Try a PDF or .txt resume." }
+      updateConversation(activeId, { messages: [...conversation.messages, userMessage, genieMessage] })
+    } finally {
+      setUploadingResume(false)
     }
   }
 
@@ -708,6 +732,18 @@ function App() {
         </div>
         {!hasMessages && <div className="starter-row" aria-label="Suggested prompts">{starterPrompts.map((prompt) => <button type="button" key={prompt} className="starter-btn" onClick={() => sendMessage(prompt)}><span>{prompt}</span><b aria-hidden="true">-&gt;</b></button>)}</div>}
         <div className="composer-note">Genie structures what you share into your research profile.</div>
+        <div className="resume-upload-row">
+          <input
+            ref={resumeInputRef}
+            type="file"
+            accept=".pdf,.txt,application/pdf,text/plain"
+            style={{ display: 'none' }}
+            onChange={(event) => { const file = event.target.files?.[0]; event.target.value = ''; if (file) handleResumeUpload(file) }}
+          />
+          <button type="button" className="resume-upload-btn" disabled={uploadingResume || isThinking} onClick={() => resumeInputRef.current?.click()}>
+            {uploadingResume ? 'Reading your resume...' : 'Prefer not to chat? Upload your resume instead (PDF or .txt)'}
+          </button>
+        </div>
       </div>
     </main>
   </div>

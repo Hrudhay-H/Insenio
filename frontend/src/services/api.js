@@ -4,24 +4,7 @@ export const apiConfig = {
   baseUrl: API_BASE_URL,
 };
 
-export async function apiRequest(path, options = {}) {
-  if (!apiConfig.baseUrl) throw new Error('API base URL is not configured');
-  
-  const token = localStorage.getItem('access_token');
-  const headers = {
-    'Content-Type': 'application/json',
-    ...(options.headers || {}),
-  };
-
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  const response = await fetch(`${apiConfig.baseUrl}${path}`, {
-    ...options,
-    headers,
-  });
-
+async function handleResponse(response) {
   if (!response.ok) {
     if (response.status === 401) {
       // Clear token and potentially redirect to login if we had global router access
@@ -42,6 +25,45 @@ export async function apiRequest(path, options = {}) {
 
   // Some endpoints might return empty response
   if (response.status === 204) return null;
-  
+
   return response.json();
+}
+
+export async function apiRequest(path, options = {}) {
+  if (!apiConfig.baseUrl) throw new Error('API base URL is not configured');
+
+  const token = localStorage.getItem('access_token');
+  const headers = {
+    'Content-Type': 'application/json',
+    ...(options.headers || {}),
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  const response = await fetch(`${apiConfig.baseUrl}${path}`, {
+    ...options,
+    headers,
+  });
+
+  return handleResponse(response);
+}
+
+// For multipart/form-data uploads — deliberately does NOT set Content-Type,
+// since the browser needs to add its own multipart boundary automatically.
+export async function apiUpload(path, formData) {
+  if (!apiConfig.baseUrl) throw new Error('API base URL is not configured');
+
+  const token = localStorage.getItem('access_token');
+  const headers = {};
+  if (token) headers['Authorization'] = `Bearer ${token}`;
+
+  const response = await fetch(`${apiConfig.baseUrl}${path}`, {
+    method: 'POST',
+    headers,
+    body: formData,
+  });
+
+  return handleResponse(response);
 }
