@@ -68,15 +68,26 @@ cp .env.example .env          # fill in your Databricks workspace details
 
 ### Initialize the database and demo data
 
+Run these **once**, the first time you set up the project — both are idempotent (safe to re-run, they check what already exists rather than failing or duplicating):
+
 ```bash
-python -m app.db.init_db            # creates all tables (idempotent)
+python -m app.db.init_db            # creates all tables
+python -m app.db.init_vector_search # enables CDF, creates VS endpoint + Delta Sync index
+```
+
+Then seed demo data — **also just once**, since data persists in Delta Lake between sessions:
+
+```bash
 python -m app.db.seed_data          # 18 demo labs + 3 demo students (Ananya persona)
-python -m app.db.init_vector_search # one-time: enables CDF, creates VS endpoint + Delta Sync index
 ```
 
 Seeded student accounts can log in through the real `/auth/login` flow with password `campus2026` (e.g. `ananya@campus.edu`).
 
+`seed_data` is destructive — it wipes all current data before reseeding — so only re-run it when you want to reset to this pristine demo state (e.g. the dataset picked up test clutter from a previous demo/dev session). It is **not** part of the normal startup routine.
+
 ### Run the server
+
+Day-to-day, this is the only command you need — data is already there from setup:
 
 ```bash
 python -m uvicorn app.main:app --port 8000
