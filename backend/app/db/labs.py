@@ -60,7 +60,8 @@ def list_labs_by_pi(pi_user_id: str) -> list[dict]:
 
 def create_lab(pi_user_id: str, pi_name: str, lab_name: str, research_focus: str, time_commitment_hrs: int,
                capacity: int, recent_publications: str | None, application_questions: list[str],
-               required_skills: list[dict]) -> str:
+               required_skills: list[dict], team_composition: str | None = None, website_url: str | None = None,
+               department: str | None = None, application_process_text: str | None = None) -> str:
     lab_id = f"lab_{uuid.uuid4().hex[:10]}"
     now = datetime.now(timezone.utc)
     with get_connection() as conn:
@@ -70,10 +71,13 @@ def create_lab(pi_user_id: str, pi_name: str, lab_name: str, research_focus: str
                 INSERT INTO {FS}.labs
                     (lab_id, lab_name, pi_name, pi_user_id, research_focus, time_commitment_hrs,
                      capacity, current_team_size, recent_publications, application_questions,
+                     team_composition, website_url, department, application_process_text,
                      reliability_score, last_updated)
                 VALUES
                     (:lab_id, :lab_name, :pi_name, :pi_user_id, :research_focus, :time_commitment_hrs,
-                     :capacity, 0, :recent_publications, :application_questions, 1.0, :last_updated)
+                     :capacity, 0, :recent_publications, :application_questions,
+                     :team_composition, :website_url, :department, :application_process_text,
+                     1.0, :last_updated)
                 """,
                 {
                     "lab_id": lab_id,
@@ -85,6 +89,10 @@ def create_lab(pi_user_id: str, pi_name: str, lab_name: str, research_focus: str
                     "capacity": capacity,
                     "recent_publications": recent_publications,
                     "application_questions": "|".join(application_questions) if application_questions else None,
+                    "team_composition": team_composition,
+                    "website_url": website_url,
+                    "department": department,
+                    "application_process_text": application_process_text,
                     "last_updated": now,
                 },
             )
@@ -102,7 +110,9 @@ def create_lab(pi_user_id: str, pi_name: str, lab_name: str, research_focus: str
 def update_lab(lab_id: str, research_focus: str | None, time_commitment_hrs: int | None, capacity: int | None,
                 current_team_size: int | None, recent_publications: str | None,
                 application_questions: list[str] | None,
-                required_skills: list[dict] | None) -> None:
+                required_skills: list[dict] | None, team_composition: str | None = None,
+                website_url: str | None = None, department: str | None = None,
+                application_process_text: str | None = None) -> None:
     existing = get_lab(lab_id)
     if not existing:
         return
@@ -121,6 +131,10 @@ def update_lab(lab_id: str, research_focus: str | None, time_commitment_hrs: int
                     current_team_size = :current_team_size,
                     recent_publications = :recent_publications,
                     application_questions = :application_questions,
+                    team_composition = :team_composition,
+                    website_url = :website_url,
+                    department = :department,
+                    application_process_text = :application_process_text,
                     last_updated = :last_updated
                 WHERE lab_id = :lab_id
                 """,
@@ -138,6 +152,16 @@ def update_lab(lab_id: str, research_focus: str | None, time_commitment_hrs: int
                         recent_publications if recent_publications is not None else existing["recent_publications"]
                     ),
                     "application_questions": new_questions,
+                    "team_composition": (
+                        team_composition if team_composition is not None else existing.get("team_composition")
+                    ),
+                    "website_url": website_url if website_url is not None else existing.get("website_url"),
+                    "department": department if department is not None else existing.get("department"),
+                    "application_process_text": (
+                        application_process_text
+                        if application_process_text is not None
+                        else existing.get("application_process_text")
+                    ),
                     "last_updated": now,
                 },
             )

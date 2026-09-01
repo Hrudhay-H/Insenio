@@ -31,12 +31,15 @@ def _merge_profile(existing: dict | None, extracted: dict) -> dict:
 
 _EMPTY_PROFILE = {
     "student_id": None,
+    "display_name": None,
     "academic_year": None,
     "major": None,
     "availability_hrs": None,
     "interests_text": None,
     "interest_tags": None,
     "skills": [],
+    "portfolio_url": None,
+    "experience_text": None,
     "last_updated": None,
 }
 
@@ -61,6 +64,8 @@ def intake_chat(body: IntakeChatRequest, user: CurrentUser = Depends(require_stu
         availability_hrs=merged["availability_hrs"],
         interests_text=merged["interests_text"],
         interest_tags=",".join(merged["interest_tags"]),
+        portfolio_url=(existing or {}).get("portfolio_url"),
+        experience_text=(existing or {}).get("experience_text"),
     )
     replace_student_skills(user.user_id, merged["skills"])
 

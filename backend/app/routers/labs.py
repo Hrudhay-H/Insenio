@@ -25,6 +25,10 @@ def _to_out(lab: dict, saved: bool = False) -> LabOut:
         application_questions=(
             [q for q in (lab.get("application_questions") or "").split("|") if q.strip()]
         ),
+        team_composition=lab.get("team_composition"),
+        website_url=lab.get("website_url"),
+        department=lab.get("department"),
+        application_process_text=lab.get("application_process_text"),
         reliability_score=round(lab["reliability_score"], 3),
         last_updated=str(lab["last_updated"]),
         required_skills=[RequiredSkillItem(**s) for s in lab.get("required_skills", [])],
@@ -78,6 +82,10 @@ def post_lab(body: LabCreate, user: CurrentUser = Depends(require_pi)):
         recent_publications=body.recent_publications,
         application_questions=body.application_questions,
         required_skills=[s.model_dump() for s in body.required_skills],
+        team_composition=body.team_composition,
+        website_url=body.website_url,
+        department=body.department,
+        application_process_text=body.application_process_text,
     )
     trigger_index_sync()
     return _to_out(get_lab(lab_id))
@@ -100,6 +108,10 @@ def put_lab(lab_id: str, body: LabUpdate, user: CurrentUser = Depends(require_pi
         recent_publications=body.recent_publications,
         application_questions=body.application_questions,
         required_skills=[s.model_dump() for s in body.required_skills] if body.required_skills is not None else None,
+        team_composition=body.team_composition,
+        website_url=body.website_url,
+        department=body.department,
+        application_process_text=body.application_process_text,
     )
     if body.research_focus is not None:
         trigger_index_sync()

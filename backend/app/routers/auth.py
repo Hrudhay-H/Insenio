@@ -11,7 +11,9 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 def signup(body: SignupRequest):
     if get_user_by_email(body.email):
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="Email already registered")
-    user = create_user(email=body.email, password_hash=hash_password(body.password), role=body.role)
+    user = create_user(
+        email=body.email, password_hash=hash_password(body.password), role=body.role, display_name=body.display_name
+    )
     token = create_access_token(user_id=user["user_id"], email=user["email"], role=user["role"])
     return TokenResponse(access_token=token, user_id=user["user_id"], role=user["role"])
 

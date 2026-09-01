@@ -18,6 +18,10 @@ class LabCreate(BaseModel):
     recent_publications: str | None = None
     application_questions: list[str] = []
     required_skills: list[RequiredSkillItem] = []
+    team_composition: str | None = None
+    website_url: str | None = None
+    department: str | None = None
+    application_process_text: str | None = None
 
 
 class LabUpdate(BaseModel):
@@ -28,6 +32,10 @@ class LabUpdate(BaseModel):
     recent_publications: str | None = None
     application_questions: list[str] | None = None
     required_skills: list[RequiredSkillItem] | None = None
+    team_composition: str | None = None
+    website_url: str | None = None
+    department: str | None = None
+    application_process_text: str | None = None
 
 
 class LabOut(BaseModel):
@@ -41,6 +49,10 @@ class LabOut(BaseModel):
     current_team_size: int
     recent_publications: str | None
     application_questions: list[str]
+    team_composition: str | None = None
+    website_url: str | None = None
+    department: str | None = None
+    application_process_text: str | None = None
     reliability_score: float
     last_updated: str
     required_skills: list[RequiredSkillItem]

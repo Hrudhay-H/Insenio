@@ -7,6 +7,7 @@ class SignupRequest(BaseModel):
     email: EmailStr
     password: str
     role: Literal["student", "pi"]
+    display_name: str | None = None
 
 
 class LoginRequest(BaseModel):

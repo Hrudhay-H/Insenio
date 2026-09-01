@@ -19,6 +19,19 @@ FS = settings.full_schema
 # instead of only being able to see their data via direct DB queries.
 DEMO_STUDENT_PASSWORD = "campus2026"
 
+_ROLLING_REVIEW = (
+    "Applications are reviewed on a rolling basis. Shortlisted students are invited for a "
+    "20-minute conversation with the PI before a final decision."
+)
+_TWO_WEEK_REVIEW = (
+    "We review applications within two weeks of submission. If there's a fit, we'll schedule "
+    "a short call to discuss the role before confirming."
+)
+_TEAM_REVIEW = (
+    "Applications are read by the whole lab team. Strong matches are invited to sit in on a "
+    "lab meeting before a final decision."
+)
+
 LABS = [
     {
         "lab_name": "Computer Vision & Robotics Lab",
@@ -29,6 +42,10 @@ LABS = [
         "current_team_size": 4,
         "recent_publications": "Efficient SLAM on Embedded GPUs (ICRA 2025)",
         "required_skills": [("Python", "intermediate"), ("PyTorch", "intermediate"), ("ROS", "beginner")],
+        "department": "Computer Science",
+        "team_composition": "2 PhD, 1 masters, 1 undergraduate",
+        "website_url": "https://cs.university.edu/labs/cv-robotics",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "NLP & Language Understanding Group",
@@ -39,6 +56,10 @@ LABS = [
         "current_team_size": 5,
         "recent_publications": "Tokenizer-free Modeling for Indic Scripts (ACL 2025)",
         "required_skills": [("Python", "intermediate"), ("PyTorch", "advanced"), ("NLP", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "3 PhD, 2 undergraduate",
+        "website_url": "https://cs.university.edu/labs/nlp",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
     {
         "lab_name": "Distributed Systems Lab",
@@ -49,6 +70,10 @@ LABS = [
         "current_team_size": 2,
         "recent_publications": "Byzantine-Tolerant Consensus at the Edge (OSDI 2024)",
         "required_skills": [("Go", "intermediate"), ("Distributed Systems", "intermediate"), ("Linux", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD, 1 masters",
+        "website_url": "https://cs.university.edu/labs/distributed-systems",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Human-Computer Interaction Lab",
@@ -59,6 +84,10 @@ LABS = [
         "current_team_size": 3,
         "recent_publications": "Voice-first UI for Low-Literacy Users (CHI 2025)",
         "required_skills": [("JavaScript", "beginner"), ("UX Research", "beginner")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD, 2 undergraduate",
+        "website_url": "https://cs.university.edu/labs/hci",
+        "application_process_text": _TEAM_REVIEW,
     },
     {
         "lab_name": "Bioinformatics & Genomics Lab",
@@ -69,6 +98,10 @@ LABS = [
         "current_team_size": 5,
         "recent_publications": "Deep Variant Calling at Population Scale (Nature Methods 2025)",
         "required_skills": [("Python", "advanced"), ("Machine Learning", "intermediate"), ("Statistics", "intermediate")],
+        "department": "Computational Biology",
+        "team_composition": "2 PhD, 1 postdoc, 2 undergraduate",
+        "website_url": "https://bio.university.edu/labs/genomics",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
     {
         "lab_name": "Cybersecurity & Systems Lab",
@@ -79,6 +112,10 @@ LABS = [
         "current_team_size": 1,
         "recent_publications": "Symbolic Execution for Firmware Fuzzing (USENIX Security 2025)",
         "required_skills": [("C", "intermediate"), ("Reverse Engineering", "beginner"), ("Python", "beginner")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD",
+        "website_url": "https://cs.university.edu/labs/cybersecurity",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Reinforcement Learning Lab",
@@ -89,6 +126,10 @@ LABS = [
         "current_team_size": 3,
         "recent_publications": "Curriculum Learning for Multi-Agent RL (NeurIPS 2025)",
         "required_skills": [("Python", "advanced"), ("PyTorch", "intermediate"), ("Reinforcement Learning", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "2 PhD, 1 masters",
+        "website_url": "https://cs.university.edu/labs/rl",
+        "application_process_text": _TEAM_REVIEW,
     },
     {
         "lab_name": "Data Systems & Databases Lab",
@@ -99,6 +140,10 @@ LABS = [
         "current_team_size": 2,
         "recent_publications": "Adaptive Query Planning for HTAP Systems (VLDB 2025)",
         "required_skills": [("SQL", "intermediate"), ("Java", "intermediate"), ("Data Structures", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD, 1 undergraduate",
+        "website_url": "https://cs.university.edu/labs/data-systems",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Computational Social Science Lab",
@@ -109,6 +154,10 @@ LABS = [
         "current_team_size": 4,
         "recent_publications": "Graph-based Misinformation Detection (ICWSM 2025)",
         "required_skills": [("Python", "beginner"), ("Statistics", "beginner"), ("Data Visualization", "beginner")],
+        "department": "Computational Social Science",
+        "team_composition": "1 PhD, 1 postdoc, 2 undergraduate",
+        "website_url": "https://css.university.edu/labs/misinformation",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
     {
         "lab_name": "Applied AI & Foundation Models Lab",
@@ -119,6 +168,10 @@ LABS = [
         "current_team_size": 6,
         "recent_publications": "LoRA at Scale: A Systems Study (MLSys 2025)",
         "required_skills": [("Python", "intermediate"), ("PyTorch", "intermediate"), ("Machine Learning", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "3 PhD, 3 masters",
+        "website_url": "https://cs.university.edu/labs/applied-ai",
+        "application_process_text": _TEAM_REVIEW,
     },
     {
         "lab_name": "Wireless Networks Lab",
@@ -129,6 +182,10 @@ LABS = [
         "current_team_size": 4,
         "recent_publications": "Spectrum Sharing for Dense 6G Deployments (IEEE Trans. Wireless 2025)",
         "required_skills": [("MATLAB", "intermediate"), ("Signal Processing", "intermediate"), ("C++", "beginner")],
+        "department": "Electrical Engineering",
+        "team_composition": "2 PhD, 2 masters",
+        "website_url": "https://ee.university.edu/labs/wireless",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Computational Biology & Drug Discovery Lab",
@@ -139,6 +196,10 @@ LABS = [
         "current_team_size": 3,
         "recent_publications": "GNNs for Molecular Property Prediction (NeurIPS 2024)",
         "required_skills": [("Python", "intermediate"), ("Machine Learning", "intermediate"), ("Chemistry", "beginner")],
+        "department": "Chemistry",
+        "team_composition": "1 PhD, 1 postdoc, 1 undergraduate",
+        "website_url": "https://chem.university.edu/labs/drug-discovery",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
     {
         "lab_name": "Robotics Manipulation Lab",
@@ -149,6 +210,10 @@ LABS = [
         "current_team_size": 5,
         "recent_publications": "Tactile-Guided Grasp Planning (RSS 2025)",
         "required_skills": [("C++", "intermediate"), ("ROS", "intermediate"), ("Control Systems", "beginner")],
+        "department": "Mechanical Engineering",
+        "team_composition": "2 PhD, 3 undergraduate",
+        "website_url": "https://me.university.edu/labs/manipulation",
+        "application_process_text": _TEAM_REVIEW,
     },
     {
         "lab_name": "Computer Graphics & Vision Lab",
@@ -159,6 +224,10 @@ LABS = [
         "current_team_size": 2,
         "recent_publications": "Sparse-View Neural Rendering (SIGGRAPH 2025)",
         "required_skills": [("Python", "intermediate"), ("PyTorch", "beginner"), ("Linear Algebra", "intermediate")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD, 1 masters",
+        "website_url": "https://cs.university.edu/labs/graphics",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Software Engineering & Program Analysis Lab",
@@ -169,6 +238,10 @@ LABS = [
         "current_team_size": 3,
         "recent_publications": "LLM-Assisted Static Analysis at Scale (ICSE 2025)",
         "required_skills": [("Python", "intermediate"), ("Java", "beginner"), ("Software Testing", "beginner")],
+        "department": "Computer Science",
+        "team_composition": "1 PhD, 2 masters",
+        "website_url": "https://cs.university.edu/labs/se",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
     {
         "lab_name": "Climate & Environmental Data Lab",
@@ -179,6 +252,10 @@ LABS = [
         "current_team_size": 1,
         "recent_publications": "Deep Learning for Land-Use Change Detection (Remote Sensing 2025)",
         "required_skills": [("Python", "beginner"), ("Machine Learning", "beginner"), ("GIS", "beginner")],
+        "department": "Environmental Science",
+        "team_composition": "1 postdoc",
+        "website_url": "https://envsci.university.edu/labs/climate-data",
+        "application_process_text": _ROLLING_REVIEW,
     },
     {
         "lab_name": "Quantum Computing Lab",
@@ -189,6 +266,10 @@ LABS = [
         "current_team_size": 4,
         "recent_publications": "Zero-Noise Extrapolation at Scale (Quantum 2025)",
         "required_skills": [("Python", "intermediate"), ("Linear Algebra", "advanced"), ("Quantum Computing", "beginner")],
+        "department": "Physics",
+        "team_composition": "2 PhD, 2 masters",
+        "website_url": "https://physics.university.edu/labs/quantum",
+        "application_process_text": _TEAM_REVIEW,
     },
     {
         "lab_name": "Educational Technology Lab",
@@ -199,6 +280,10 @@ LABS = [
         "current_team_size": 4,
         "recent_publications": "Bayesian Knowledge Tracing Revisited (EDM 2025)",
         "required_skills": [("Python", "beginner"), ("Data Analysis", "beginner"), ("JavaScript", "beginner")],
+        "department": "Education",
+        "team_composition": "1 PhD, 1 postdoc, 2 undergraduate",
+        "website_url": "https://edtech.university.edu/labs/adaptive-learning",
+        "application_process_text": _TWO_WEEK_REVIEW,
     },
 ]
 
@@ -206,32 +291,47 @@ STUDENTS = [
     {
         "student_id": "student_ananya",
         "email": "ananya@campus.edu",
+        "display_name": "Ananya",
         "academic_year": "3rd year",
         "major": "Computer Science",
         "availability_hrs": 8,
         "interests_text": "Vaguely interested in AI, leaning toward how models are actually built rather than just applying APIs.",
         "interest_tags": ["ai", "machine learning", "model building"],
         "skills": [("Python", "intermediate"), ("DSA", "intermediate")],
+        "experience_text": (
+            "No formal research experience yet. Coursework includes data structures & algorithms "
+            "and an intro ML elective; currently self-studying deep learning fundamentals outside of class."
+        ),
     },
     {
         "student_id": "student_ravi",
         "email": "ravi@campus.edu",
+        "display_name": "Ravi",
         "academic_year": "4th year",
         "major": "Electronics & Communication",
         "availability_hrs": 10,
         "interests_text": "Interested in robotics and embedded control systems, has built a line-following robot.",
         "interest_tags": ["robotics", "embedded systems", "control"],
         "skills": [("C++", "intermediate"), ("ROS", "beginner"), ("Python", "beginner")],
+        "experience_text": (
+            "Built a line-following robot as a personal project using an Arduino and basic PID control; "
+            "coursework in embedded systems and digital signal processing."
+        ),
     },
     {
         "student_id": "student_meher",
         "email": "meher@campus.edu",
+        "display_name": "Meher",
         "academic_year": "2nd year",
         "major": "Computer Science",
         "availability_hrs": 6,
         "interests_text": "Curious about how misinformation spreads online and wants to work with real social data.",
         "interest_tags": ["social science", "networks", "data analysis"],
         "skills": [("Python", "beginner"), ("Statistics", "beginner")],
+        "experience_text": (
+            "Completed a class project analyzing engagement patterns on a public Twitter dataset using "
+            "Python and pandas; no prior formal research experience."
+        ),
     },
 ]
 
@@ -266,11 +366,13 @@ def seed_labs():
                     INSERT INTO {FS}.labs
                         (lab_id, lab_name, pi_name, pi_user_id, research_focus,
                          time_commitment_hrs, capacity, current_team_size,
-                         recent_publications, reliability_score, last_updated)
+                         recent_publications, team_composition, website_url, department,
+                         application_process_text, reliability_score, last_updated)
                     VALUES
                         (:lab_id, :lab_name, :pi_name, NULL, :research_focus,
                          :time_commitment_hrs, :capacity, :current_team_size,
-                         :recent_publications, :reliability_score, :last_updated)
+                         :recent_publications, :team_composition, :website_url, :department,
+                         :application_process_text, :reliability_score, :last_updated)
                     """,
                     {
                         "lab_id": lab_id,
@@ -281,6 +383,10 @@ def seed_labs():
                         "capacity": lab["capacity"],
                         "current_team_size": lab["current_team_size"],
                         "recent_publications": lab["recent_publications"],
+                        "team_composition": lab["team_composition"],
+                        "website_url": lab["website_url"],
+                        "department": lab["department"],
+                        "application_process_text": lab["application_process_text"],
                         "reliability_score": 1.0,
                         "last_updated": _now() - timedelta(days=lab["current_team_size"]),
                     },
@@ -302,13 +408,14 @@ def seed_students():
             for student in STUDENTS:
                 cursor.execute(
                     f"""
-                    INSERT INTO {FS}.users (user_id, email, password_hash, role, created_at)
-                    VALUES (:user_id, :email, :password_hash, 'student', :created_at)
+                    INSERT INTO {FS}.users (user_id, email, password_hash, role, display_name, created_at)
+                    VALUES (:user_id, :email, :password_hash, 'student', :display_name, :created_at)
                     """,
                     {
                         "user_id": student["student_id"],
                         "email": student["email"],
                         "password_hash": hash_password(DEMO_STUDENT_PASSWORD),
+                        "display_name": student["display_name"],
                         "created_at": _now(),
                     },
                 )
@@ -316,10 +423,10 @@ def seed_students():
                     f"""
                     INSERT INTO {FS}.student_profiles
                         (student_id, academic_year, major, availability_hrs,
-                         interests_text, interest_tags, last_updated)
+                         interests_text, interest_tags, experience_text, last_updated)
                     VALUES
                         (:student_id, :academic_year, :major, :availability_hrs,
-                         :interests_text, :interest_tags, :last_updated)
+                         :interests_text, :interest_tags, :experience_text, :last_updated)
                     """,
                     {
                         "student_id": student["student_id"],
@@ -328,6 +435,7 @@ def seed_students():
                         "availability_hrs": student["availability_hrs"],
                         "interests_text": student["interests_text"],
                         "interest_tags": ",".join(student["interest_tags"]),
+                        "experience_text": student["experience_text"],
                         "last_updated": _now(),
                     },
                 )

@@ -13,7 +13,12 @@ def list_all_student_ids() -> list[str]:
 
 def get_student_profile(student_id: str) -> dict | None:
     profiles = execute(
-        f"SELECT * FROM {FS}.student_profiles WHERE student_id = :student_id",
+        f"""
+        SELECT p.*, u.display_name, u.email
+        FROM {FS}.student_profiles p
+        LEFT JOIN {FS}.users u ON u.user_id = p.student_id
+        WHERE p.student_id = :student_id
+        """,
         {"student_id": student_id},
     )
     if not profiles:
@@ -33,6 +38,8 @@ def upsert_student_profile(
     availability_hrs: int | None,
     interests_text: str | None,
     interest_tags: str | None,
+    portfolio_url: str | None = None,
+    experience_text: str | None = None,
 ) -> None:
     execute(
         f"""
@@ -45,6 +52,8 @@ def upsert_student_profile(
                 :availability_hrs AS availability_hrs,
                 :interests_text AS interests_text,
                 :interest_tags AS interest_tags,
+                :portfolio_url AS portfolio_url,
+                :experience_text AS experience_text,
                 :last_updated AS last_updated
         ) AS source
         ON target.student_id = source.student_id
@@ -54,13 +63,16 @@ def upsert_student_profile(
             availability_hrs = source.availability_hrs,
             interests_text = source.interests_text,
             interest_tags = source.interest_tags,
+            portfolio_url = source.portfolio_url,
+            experience_text = source.experience_text,
             last_updated = source.last_updated
         WHEN NOT MATCHED THEN INSERT (
             student_id, academic_year, major, availability_hrs,
-            interests_text, interest_tags, last_updated
+            interests_text, interest_tags, portfolio_url, experience_text, last_updated
         ) VALUES (
             source.student_id, source.academic_year, source.major, source.availability_hrs,
-            source.interests_text, source.interest_tags, source.last_updated
+            source.interests_text, source.interest_tags, source.portfolio_url, source.experience_text,
+            source.last_updated
         )
         """,
         {
@@ -70,6 +82,8 @@ def upsert_student_profile(
             "availability_hrs": availability_hrs,
             "interests_text": interests_text,
             "interest_tags": interest_tags,
+            "portfolio_url": portfolio_url,
+            "experience_text": experience_text,
             "last_updated": datetime.now(timezone.utc),
         },
     )
