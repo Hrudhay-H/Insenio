@@ -20,3 +20,10 @@ class TokenResponse(BaseModel):
     token_type: str = "bearer"
     user_id: str
     role: str
+
+
+class MeOut(BaseModel):
+    user_id: str
+    email: str
+    display_name: str | None
+    role: str

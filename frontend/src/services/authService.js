@@ -14,4 +14,8 @@ export const authService = {
       body: JSON.stringify({ email, password }),
     });
   },
+
+  async getMe() {
+    return apiRequest('/auth/me');
+  },
 };

@@ -34,7 +34,7 @@ const FEATURES = [
     title: 'Skill Gap Analysis',
     shortDesc: 'Know what stands between you and the lab.',
     description: 'See exactly which skills a research lab expects and how your current abilities compare. Missing a skill doesn\'t automatically eliminate an opportunity — meaningful interest can surface a lab as a Stretch Pick, showing you what you need to build toward.',
-    image: '/feature4.png'
+    image: '/feature1.png'
   },
   {
     id: '05',
@@ -42,7 +42,7 @@ const FEATURES = [
     title: 'Insenio Research Assistant',
     shortDesc: 'Ask for research opportunities in plain language.',
     description: 'Use Insenio to explore the research landscape conversationally. Ask questions such as which labs need Python, which opportunities have open capacity, or which research areas align with your interests. Insenio queries the underlying structured lab data instead of acting as a generic chatbot.',
-    image: '/feature5.png'
+    image: '/feature2.png'
   },
   {
     id: '06',
@@ -50,7 +50,7 @@ const FEATURES = [
     title: 'Apply Assist',
     shortDesc: 'Turn a good match into a thoughtful application.',
     description: 'Once you find a promising lab, Insenio helps draft a personalized outreach message using your actual skills and interests. If the lab has additional questions, Insenio can help draft those answers too. You always review and edit the message before anything is sent — no autonomous applications.',
-    image: '/feature6.png'
+    image: '/feature3.png'
   }
 ];
 

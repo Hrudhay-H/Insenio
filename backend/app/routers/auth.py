@@ -1,7 +1,8 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
-from app.db.users import create_user, get_user_by_email
-from app.models.auth import LoginRequest, SignupRequest, TokenResponse
+from app.auth_deps import CurrentUser, get_current_user
+from app.db.users import create_user, get_user_by_email, get_user_by_id
+from app.models.auth import LoginRequest, MeOut, SignupRequest, TokenResponse
 from app.security import create_access_token, hash_password, verify_password
 
 router = APIRouter(prefix="/auth", tags=["auth"])
@@ -16,6 +17,17 @@ def signup(body: SignupRequest):
     )
     token = create_access_token(user_id=user["user_id"], email=user["email"], role=user["role"])
     return TokenResponse(access_token=token, user_id=user["user_id"], role=user["role"])
+
+
+@router.get("/me", response_model=MeOut)
+def me(user: CurrentUser = Depends(get_current_user)):
+    row = get_user_by_id(user.user_id)
+    return MeOut(
+        user_id=user.user_id,
+        email=user.email,
+        display_name=row.get("display_name") if row else None,
+        role=user.role,
+    )
 
 
 @router.post("/login", response_model=TokenResponse)

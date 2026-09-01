@@ -28,7 +28,15 @@ export const labService = {
   async getLabStats(labId) {
     return apiRequest(`/labs/${labId}/stats`);
   },
-  
+
+  async createLab(data) {
+    return apiRequest('/labs', { method: 'POST', body: JSON.stringify(data) });
+  },
+
+  async updateLab(labId, data) {
+    return apiRequest(`/labs/${labId}`, { method: 'PUT', body: JSON.stringify(data) });
+  },
+
   async getLearningResources() {
     return [];
   },

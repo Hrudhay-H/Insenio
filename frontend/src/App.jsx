@@ -9,6 +9,7 @@ import { Login } from './components/auth/Login';
 import { Signup } from './components/auth/Signup';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import DashboardApp from './DashboardApp';
+import PIDashboardApp from './PIDashboardApp';
 
 function LandingPage() {
   return (
@@ -34,6 +35,11 @@ function ProtectedRoute({ children }) {
   return children;
 }
 
+function RoleDashboard() {
+  const { role } = useAuth();
+  return role === 'pi' ? <PIDashboardApp /> : <DashboardApp />;
+}
+
 function App() {
   return (
     <AuthProvider>
@@ -41,13 +47,13 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route 
-          path="/dashboard/*" 
+        <Route
+          path="/dashboard/*"
           element={
             <ProtectedRoute>
-              <DashboardApp />
+              <RoleDashboard />
             </ProtectedRoute>
-          } 
+          }
         />
       </Routes>
     </AuthProvider>
