@@ -17,6 +17,9 @@ backend/evals/results/
 # Local tooling
 .claude/
 
+# Original frontend zip drop — source is extracted and tracked under frontend/
+insenioFrontend.zip
+
 # OS
 .DS_Store
 Thumbs.db
