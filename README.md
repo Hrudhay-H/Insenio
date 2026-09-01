@@ -2,7 +2,7 @@
 
 A campus research-lab matching platform built entirely on Databricks, for a Databricks-sponsored hackathon. It connects students to faculty research labs through a conversational intake agent, transparent skill/interest matching, and AI-assisted (but always human-confirmed) applications.
 
-This repo currently covers the **backend, database, and AI layers** — a real product frontend is intentionally out of scope for now; a minimal API-only build was the priority.
+The backend, database, and AI layers were built first as an API-only product (see `backend/`); the React frontend (`frontend/`) was built separately by the team and is now wired to this API.
 
 ## What it does
 
@@ -40,6 +40,12 @@ backend/
     routers/        # auth, profile, intake, matches, labs, applications, pi_dashboard
   evals/           # guardrail eval suites (scope classifier, apply-assist grounding)
   tests/           # pytest wrapper around the evals
+frontend/
+  src/
+    services/       # API client + adapters mapping backend responses onto UI shapes
+    components/      # auth, layout, marketing-page sections
+    context/         # auth context (JWT + role, localStorage-backed)
+    DashboardApp.jsx # the logged-in student experience (chat, marketplace, profile)
 docs/
   DatabricksPRDTRD.pdf
   Genie_Campus_Lab_Match_Design_Doc.md
@@ -95,6 +101,18 @@ python -m uvicorn app.main:app --port 8000
 
 Interactive API docs at `http://localhost:8000/docs`.
 
+### Run the frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Opens at `http://localhost:5173`, talking to the backend at `http://localhost:8000` (override with `VITE_API_BASE_URL` if needed). The backend's CORS config currently allows `localhost:5173` specifically — update `app/main.py`'s `CORSMiddleware` origins if you run the frontend elsewhere.
+
+Seeded logins work end-to-end through the real UI: sign in as `ananya@campus.edu` / `campus2026` to see an existing profile, or sign up fresh as a student or PI.
+
 ## Testing
 
 ```bash
@@ -109,4 +127,4 @@ The eval suite covers:
 
 ## Status
 
-All backend/AI/DB milestones are complete and verified against a live Databricks workspace (not mocked): auth, conversational intake, transparent + semantic matching, lab marketplace, Apply Assist, applications, PI dashboard, reliability decay, and guardrail evals. A dedicated product frontend is the next phase, built separately from this repo's scope.
+All backend/AI/DB milestones are complete and verified against a live Databricks workspace (not mocked): auth, conversational intake, transparent + semantic matching, lab marketplace, Apply Assist, applications, PI dashboard, reliability decay, and guardrail evals. The frontend is wired to all of these for the student-facing flow (signup/login, intake chat, marketplace, saved labs, profile, apply-assist). Not yet built: a PI-facing dashboard UI, and a UI entry point into the apply-assist page (its data layer works, but nothing currently links to it).
