@@ -1,4 +1,4 @@
-# Insenio — Genie Campus Lab Match
+# Insenio - Genie Campus Lab Match
 
 A campus research-lab matching platform built entirely on Databricks, for a Databricks-sponsored hackathon. It connects students to faculty research labs through a conversational intake agent, transparent skill/interest matching, and AI-assisted (but always human-confirmed) applications.
 
