@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+
+# Virtual environments
+.venv/
+venv/
+
+# Secrets — real Databricks host/token/JWT secret live here, never commit
+backend/.env
+
+# Eval run artifacts (regenerated on every eval run, not source)
+backend/evals/results/
+
+# Local tooling
+.claude/
+
+# OS
+.DS_Store
+Thumbs.db
