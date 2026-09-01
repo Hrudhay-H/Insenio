@@ -90,7 +90,7 @@ export function Hero() {
         </Reveal>
 
         {/* Side Image */}
-        <Reveal delay={0.2} className="w-full relative hidden lg:block">
+        <Reveal delay={0.2} className="w-full relative block">
           <div className="w-full   rounded-xl flex items-center justify-center overflow-hidden relative ">
             <img 
               src="/hero-side.png" 

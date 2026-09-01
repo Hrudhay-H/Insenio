@@ -47,8 +47,11 @@ export function Navbar() {
 
         {/* Right Actions */}
         <div className="flex items-center gap-6">
-          <Link to="/login" className="hidden sm:block text-sm font-medium text-gray-500 hover:text-black transition-colors">
+          <Link to="/login" className="block text-sm font-medium text-gray-500 hover:text-black transition-colors">
             Login
+          </Link>
+          <Link to="/signup" className="block text-sm font-medium text-gray-500 hover:text-black transition-colors">
+            Sign up
           </Link>
           <Link to="/dashboard" className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-[#0066FF] text-white text-sm font-bold shadow-md hover:bg-blue-600 transition-colors">
             Find a Lab <ArrowRight className="w-4 h-4" />
